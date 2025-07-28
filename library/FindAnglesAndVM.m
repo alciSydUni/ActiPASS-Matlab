@@ -49,11 +49,12 @@ function  [V,AccFilt,SVM,normAcc] = FindAnglesAndVM(Acc,SF,Fc)
 % POSSIBILITY OF SUCH DAMAGE.
     
      
-   [Blp,Alp] = butter(6,Fc/(SF/2)); % 6th order buttorworth filter at Fc
+   [Blp,Alp] = butter(6,Fc/(SF/2));
    AccFilt = filter(Blp,Alp,Acc);
    SVM = sqrt(sum(AccFilt .^ 2, 2));
    normAcc = AccFilt./repmat(SVM,1,3);
    Inc = acos(normAcc(:,1));
    U = -asin(normAcc(:,3));
    V = [Inc,U,-asin(normAcc(:,2))];
-   
+end
+
